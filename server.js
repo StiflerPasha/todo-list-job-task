@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://192.168.1.135:3000",
     credentials: true
   })
 );
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 app.use('/api', tasks);
 
-app.listen(port, function() {
-  console.log(`Server start on port ${port}`)
+app.listen(port, () => {
+  console.log(`Listen on port ${port}`)
 });
 
