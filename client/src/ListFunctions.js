@@ -32,7 +32,7 @@ export const deleteTaskFromList = term => {
 
 export const updateItem = (title, id, done) => {
 	 return axios
-		 .put(
+		 .patch(
 			 `http://localhost:5000/api/task/${id}`,
 			 {
 					title: title,

@@ -1,31 +1,27 @@
 const express = require('express');
-const path = require('path');
+const app = express();
+
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+require('dotenv/config');
 
 const tasks = require('./routes');
 const cors = require('cors');
-const port = 5000;
-const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true
-  })
-);
+const port = process.env.PORT || 5000;
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.engine("html", require("ejs").renderFile);
+mongoose.connect(process.env.DB_CONNECTION,
+	{useNewUrlParser: true}, () => console.log('Connected to DB'));
+
+app.use(cors());
+
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api', tasks);
 
 app.listen(port, () => {
-  console.log(`Listen on port ${port}`)
+	 console.log(`Server start on port ${port}`)
 });
 
